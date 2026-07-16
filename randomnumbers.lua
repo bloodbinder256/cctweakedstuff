@@ -19,7 +19,7 @@ math.randomseed(os.epoch("utc"))
 
 local vars = {}
 
-local function generate(player, count, min, max)
+local function generate(player, count, min, max, sleepamount)
     cb.sendMessageToPlayer("Generating random numbers...", player)
     monitor.setCursorPos(1, 1)
 
@@ -28,7 +28,7 @@ local function generate(player, count, min, max)
         monitor.write(("var%d: %d"):format(i, vars[i]))
         monitor.setCursorPos(1, i + 1)
         speaker.playSound("minecraft:block.note_block.harp")
-        sleep(1) -- Chat Box has a cooldown
+        sleep(sleepamount) -- Chat Box has a cooldown
     end
 end
 
@@ -40,7 +40,7 @@ while true do
     elseif event == "chat" then
         local username, message = arg1, arg2
         if message:lower() == "generate" then
-            generate(username, 5, 1, 1000)
+            generate(username, 5, 1, 1000, 0.5)
         end
     end
 end
