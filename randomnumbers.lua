@@ -1,4 +1,4 @@
-local randomlib = dofile("cctweakedstuff/lib/randomlib.lua")
+local random = require("randomlib")
 
 local cb = peripheral.find("chat_box")
 local speaker = peripheral.find("speaker")
@@ -9,8 +9,6 @@ speaker.stop()
 if not cb then error("No Chat Box found!") end
 if not speaker then error("No Speaker found!") end
 if not monitor then error("No Monitor found!") end
-
-monitor.clear()
 
 local function generate(player, count, min, max, sleepamount)
     cb.sendMessageToPlayer("Generating random numbers...", player)
