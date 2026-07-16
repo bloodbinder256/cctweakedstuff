@@ -4,6 +4,7 @@ local random = require("lib/randomlib")
 local cb = peripheral.find("chat_box")
 local speaker = peripheral.find("speaker")
 local monitor = peripheral.find("monitor")
+local relay = peripheral.find("redstone_relay")
 
 speaker.stop()
 
@@ -30,7 +31,7 @@ end
 while true do
     local event, arg1, arg2 = os.pullEvent()
 
-    if event == "monitor_touch" then
+    if event == "getInput(front)" then
         monitor.clear()
     elseif event == "chat" then
         local username, message = arg1, arg2
