@@ -25,16 +25,30 @@ end
 
 local function generate()
     monitor.clear()
+    monitor.setCursorPos(1, 1)
+
+    local width, height = monitor.getSize()
+    local x, y = 1, 1
 
     local vars = random.generate(numberCount, 1, 1000)
 
     for i, value in ipairs(vars) do
-        monitor.setCursorPos(1, i)
-        monitor.write(("var%d: %d"):format(i, value))
+        local text = ("var%d: %d"):format(i, value)
+
+        -- move to next row if needed
+        if y > height then
+            y = 1
+            monitor.clear()
+        end
+
+        monitor.setCursorPos(x, y)
+        monitor.write(text)
 
         speaker.playSound(
             "minecraft:block.note_block.harp"
         )
+
+        y = y + 1
 
         sleep(0.5)
     end
