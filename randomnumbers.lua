@@ -1,7 +1,6 @@
 local cb = peripheral.find("chat_box")
 local speaker = peripheral.find("speaker")
 local monitor = peripheral.find("monitor")
-local i = 0
 
 speaker.stop()
 
