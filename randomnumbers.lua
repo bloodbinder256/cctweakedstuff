@@ -26,8 +26,7 @@ while true do
     local _, username, message = os.pullEvent("chat")
 
     if message:lower() == "generate" then
-        generate(username, 5, 1, 1000)
-        speaker.playSound("minecraft:block.note_block.cow_bell")
+        generate(username, 5, 1, 9)
         speaker.stop()
     end
 end
