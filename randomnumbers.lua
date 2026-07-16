@@ -22,6 +22,7 @@ local function generate(player, count, min, max)
     for i = 0, count do
         vars[i] = math.random(min, max)
         monitor.write(("var%d: %d"):format(i, vars[i]))
+        monitor.setCursorPos(1, i)
         speaker.playSound("minecraft:block.note_block.harp")
         sleep(1) -- Chat Box has a cooldown
     end
