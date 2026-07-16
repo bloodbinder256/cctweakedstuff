@@ -1,6 +1,10 @@
 local cb = peripheral.find("chat_box")
 local speaker = peripheral.find("speaker")
 local monitor = peripheral.find("monitor")
+local i = 0
+
+speaker.stop()
+
 
 if not cb then
     error("No Chat Box found!")
@@ -13,6 +17,7 @@ if not monitor then
 end
 
 math.randomseed(os.epoch("utc"))
+
 
 local vars = {}
 
@@ -33,8 +38,8 @@ while true do
 
     if message:lower() == "generate" then
         generate(username, 5, 1, 1000)
-        speaker.stop()
+        
     end
 
-
 end
+
