@@ -7,6 +7,8 @@ if not speaker then
     error("No Speaker found!")
 end
 
+speaker.stop()
+
 math.randomseed(os.epoch("utc"))
 
 local vars = {}
@@ -21,7 +23,7 @@ local function generate(player, count, min, max)
     end
     speaker.playSound("minecraft:block.note_block.harp", {volume = 1, pitch = 1})
 end
-stop()
+
 while true do
     local _, username, message = os.pullEvent("chat")
 
