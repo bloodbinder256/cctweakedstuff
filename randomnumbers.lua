@@ -61,8 +61,8 @@ local function buttonWatcher()
         local front = relay.getInput("front")
 
 
-        -- left BUTTON: add 1
-        if right and not lastLeft then
+        -- RIGHT BUTTON: add 1
+        if right and not lastRight then
             numberCount = numberCount + 1
             updateMonitor()
 
@@ -72,8 +72,8 @@ local function buttonWatcher()
         end
 
 
-        -- right BUTTON: remove 1
-        if left and not lastRight then
+        -- LEFT BUTTON: remove 1
+        if left and not lastLeft then
             numberCount = math.max(1, numberCount - 1)
             updateMonitor()
 
@@ -101,8 +101,8 @@ local function buttonWatcher()
         end
 
 
-        lastLeft = left
-        lastRight = right
+        lastLeft = right
+        lastRight = left
         lastTop = top
         lastFront = front
 
