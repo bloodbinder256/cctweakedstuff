@@ -7,8 +7,6 @@ if not speaker then
     error("No Speaker found!")
 end
 
-speaker.stop()
-
 math.randomseed(os.epoch("utc"))
 
 local vars = {}
@@ -22,6 +20,7 @@ local function generate(player, count, min, max)
         speaker.playSound("minecraft:block.note_block.harp")
         sleep(1) -- Chat Box has a cooldown
     end
+    speaker.playSound("minecraft:block.note_block.cow_bell")
 end
 
 while true do
@@ -29,5 +28,6 @@ while true do
 
     if message:lower() == "generate" then
         generate(username, 5, 1, 1000)
+        speaker.stop()
     end
 end
