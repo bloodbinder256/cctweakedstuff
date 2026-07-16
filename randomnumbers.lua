@@ -1,3 +1,4 @@
+package.path = package.path .. ";/lib/?.lua"
 local random = require("lib/randomlib")
 
 local cb = peripheral.find("chat_box")
