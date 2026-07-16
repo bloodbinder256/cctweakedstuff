@@ -3,7 +3,7 @@ local speaker = peripheral.find("speaker")
 local monitor = peripheral.find("monitor")
 
 speaker.stop()
-
+monitor.clear()
 
 if not cb then
     error("No Chat Box found!")
