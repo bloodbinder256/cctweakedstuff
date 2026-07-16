@@ -1,4 +1,5 @@
-local random = require("cctweakedstuff.randomlib")
+package.path = package.path .. ";/lib/?.lua"
+local random = require("randomlib")
 
 local cb = peripheral.find("chat_box")
 local speaker = peripheral.find("speaker")
