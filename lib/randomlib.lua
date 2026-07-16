@@ -1,4 +1,4 @@
-local random = require("cctweakedstuff.randomlib")
+local random = {}
 
 math.randomseed(os.epoch("utc"))
 
