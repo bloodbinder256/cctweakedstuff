@@ -1,6 +1,7 @@
-local cb = peripheral.find("chat_box")
+local chatBox = peripheral.find("chatBox")
 local speaker = peripheral.find("speaker")
-if not cb then
+
+if not chatBox then
     error("No Chat Box found!")
 end
 if not speaker then
@@ -12,11 +13,11 @@ math.randomseed(os.epoch("utc"))
 local vars = {}
 
 local function generate(count, min, max)
-    cb.sendMessage("Generating random numbers...")
+    chatBox.sendMessage("Generating random numbers...")
 
     for i = 0, count do
         vars[i] = math.random(min, max)
-        cb.sendMessage(("var%d: %d"):format(i, vars[i]))
+        chatBox.sendMessage(("var%d: %d"):format(i, vars[i]))
         speaker.playSound("minecraft:block.note_block.harp")
         sleep(1) -- Chat Box has a cooldown
     end
