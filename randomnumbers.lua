@@ -1,4 +1,4 @@
-local randomlib = require("lib/randomlib")
+local random = require("randomlib")
 
 local cb = peripheral.find("chat_box")
 local speaker = peripheral.find("speaker")
