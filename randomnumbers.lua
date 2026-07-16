@@ -20,6 +20,8 @@ math.randomseed(os.epoch("utc"))
 
 local vars = {}
 
+monitor.clear()
+
 local function generate(player, count, min, max)
     cb.sendMessageToPlayer("Generating random numbers...", player)
     monitor.setCursorPos(1, 1)
@@ -40,4 +42,3 @@ while true do
         generate(username, 5, 1, 1000)
     end
 end
-monitor.clear()
