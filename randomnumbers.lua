@@ -3,7 +3,6 @@ local speaker = peripheral.find("speaker")
 local monitor = peripheral.find("monitor")
 
 speaker.stop()
-monitor.clear()
 
 if not cb then
     error("No Chat Box found!")
@@ -18,6 +17,7 @@ end
 math.randomseed(os.epoch("utc"))
 
 local vars = {}
+monitor.clear()
 
 local function generate(player, count, min, max, sleepamount)
     cb.sendMessageToPlayer("Generating random numbers...", player)
