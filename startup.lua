@@ -1,1 +1,1 @@
-package.path = package.path .. ";/lib/?.lua;/lib/?/init.lua"
+package.path = package.path .. ";/lib/?.lua;/lib/?/init.lua;/lib/cctweakedstuff/?.lua;/lib/cctweakedstuff/?/init.lua"
