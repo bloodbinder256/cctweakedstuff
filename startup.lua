@@ -1,1 +1,1 @@
-print("STARTUP LOADED")
+package.path = package.path .. ";/lib/?.lua"
