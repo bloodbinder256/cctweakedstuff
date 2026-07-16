@@ -31,7 +31,7 @@ end
 while true do
     local event, arg1, arg2 = os.pullEvent()
 
-    if event == "relay.getInput(front)" == true then
+    if event == "relay.getInput(front)" and arg1 == true then
         monitor.clear()
     elseif event == "chat" then
         local username, message = arg1, arg2
