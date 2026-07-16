@@ -27,7 +27,7 @@ while true do
 
     if message:lower() == "generate" then
         generate(username, 5, 1, 1000)
+        speaker.playSound("minecraft:block.note_block.cow_bell")
         speaker.stop()
     end
-      speaker.playSound("minecraft:block.note_block.cow_bell")
 end
