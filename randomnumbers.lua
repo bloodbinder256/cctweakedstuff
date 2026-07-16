@@ -51,6 +51,20 @@ local function generate()
         local x = (column * columnWidth) + 1
 
 
+        -- move to next column if text doesn't fit
+        if x + #text - 1 > width then
+            column = column + 1
+            row = 1
+            x = (column * columnWidth) + 1
+        end
+
+
+        -- stop if the column is off the monitor
+        if x + #text - 1 > width then
+            break
+        end
+
+
         monitor.setCursorPos(x, row)
         monitor.write(text)
 
@@ -58,7 +72,7 @@ local function generate()
         row = row + 1
 
 
-        -- move to next column
+        -- move down the column
         if row > height then
             row = 1
             column = column + 1
