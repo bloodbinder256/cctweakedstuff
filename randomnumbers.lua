@@ -2,9 +2,6 @@ local cb = peripheral.find("chat_box")
 local speaker = peripheral.find("speaker")
 local monitor = peripheral.find("monitor")
 
-speaker.stop()
-
-
 if not cb then
     error("No Chat Box found!")
 end
@@ -16,7 +13,6 @@ if not monitor then
 end
 
 math.randomseed(os.epoch("utc"))
-
 
 local vars = {}
 
