@@ -12,13 +12,14 @@ if not speaker then error("No Speaker found!") end
 if not monitor then error("No Monitor found!") end
 if not relay then error("No Redstone Relay found!") end
 
+
 speaker.stop()
+
 
 local function generate(player, count, min, max, sleepamount)
     cb.sendMessageToPlayer("Generating random numbers...", player)
 
     monitor.clear()
-    monitor.setCursorPos(1, 1)
 
     local vars = random.generate(count, min, max)
 
@@ -33,30 +34,38 @@ local function generate(player, count, min, max, sleepamount)
 end
 
 
-local lastRelayInput = false
+local function relayWatcher()
+    local oldState = false
 
-while true do
-    if relay.getInput("front") then
-        monitor.clear()
-        monitor.setCursorPos(1, 1)
-        monitor.write("Relay ON")
+    while true do
+        local state = relay.getInput("front")
 
-        sleep(1)
-
-        -- wait until relay turns off
-        while relay.getInput("front") do
-            sleep(0.1)
+        if state and not oldState then
+            monitor.clear()
+            monitor.setCursorPos(1,1)
+            monitor.write("Relay triggered!")
+            speaker.playSound("minecraft:block.note_block.bell")
         end
+
+        oldState = state
+
+        sleep(0.1)
     end
+end
 
-    local event, arg1, arg2 = os.pullEventRaw()
 
-    if event == "chat" then
-        local username = arg1
-        local message = arg2
+local function chatWatcher()
+    while true do
+        local event, username, message = os.pullEvent("chat")
 
         if message:lower() == "generate" then
             generate(username, 5, 1, 1000, 0.5)
         end
     end
 end
+
+
+parallel.waitForAny(
+    relayWatcher,
+    chatWatcher
+)
