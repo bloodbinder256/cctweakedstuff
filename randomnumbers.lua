@@ -51,15 +51,7 @@ local function generate()
         local x = (column * columnWidth) + 1
 
 
-        -- move to next column if text doesn't fit
-        if x + #text - 1 > width then
-            column = column + 1
-            row = 1
-            x = (column * columnWidth) + 1
-        end
-
-
-        -- stop if the column is off the monitor
+        -- If it won't fit, reset BEFORE writing this number
         if x + #text - 1 > width then
             monitor.clear()
 
@@ -69,23 +61,22 @@ local function generate()
             x = 1
         end
 
+
         monitor.setCursorPos(x, row)
         monitor.write(text)
+
 
         row = row + 1
 
 
-        -- move down the column
+        -- move to next column
         if row > height then
             row = 1
             column = column + 1
         end
 
 
-        speaker.playSound(
-            "minecraft:block.note_block.harp"
-        )
-
+        speaker.playSound("minecraft:block.note_block.harp")
         sleep(0.5)
     end
 end
