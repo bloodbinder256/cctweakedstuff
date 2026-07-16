@@ -37,8 +37,6 @@ while true do
 
     if message:lower() == "generate" then
         generate(username, 5, 1, 1000)
-        
     end
-
 end
 monitor.clear()
