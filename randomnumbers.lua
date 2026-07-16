@@ -1,7 +1,10 @@
 local cb = peripheral.find("chat_box")
-
+local speaker = peripheral.find("speaker")
 if not cb then
     error("No Chat Box found!")
+end
+if not speaker then
+    error("No Speaker found!")
 end
 
 math.randomseed(os.epoch("utc"))
@@ -14,6 +17,7 @@ local function generate(player, count, min, max)
     for i = 0, count do
         vars[i] = math.random(min, max)
         cb.sendMessageToPlayer(("var%d: %d"):format(i, vars[i]), player)
+        speaker.playNote("block.note.harp", 1, 440)
         sleep(1) -- Chat Box has a cooldown
     end
 end
