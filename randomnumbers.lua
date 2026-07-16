@@ -46,12 +46,6 @@ local function generate()
 
 
     for i, value in ipairs(vars) do
-        -- stop if screen is full
-        if column >= columns then
-            break
-        end
-
-
         local text = ("var%d: %d"):format(i, value)
 
         local x = (column * columnWidth) + 1
