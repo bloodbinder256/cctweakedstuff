@@ -30,41 +30,44 @@ local function generate()
 
     local vars = random.generate(numberCount, 1, 1000)
 
-    local column = 0
     local row = 1
+    local column = 1
 
-    -- space between columns
-    local columnWidth = 12
+    local columnGap = 2 -- spaces between columns
+
 
     for i, value in ipairs(vars) do
-        local x = (column * columnWidth) + 1
-        local y = row
-
-        -- write number
-        monitor.setCursorPos(x, y)
-        monitor.write(("var%d: %d"):format(i, value))
+        local text = ("var%d: %d"):format(i, value)
+        local textLength = #text
 
 
-        -- move down
-        row = row + 1
+        -- If this number cannot fit on this row, move down
+        if column + textLength - 1 > width then
+            column = 1
+            row = row + 1
+        end
 
 
-        -- reached bottom, move right
+        -- If it cannot fit vertically, reset screen
         if row > height then
-            row = 1
-            column = column + 1
-        end
-
-
-        -- reached right edge, reset
-        if (column * columnWidth) + 1 > width then
             monitor.clear()
-            column = 0
             row = 1
+            column = 1
         end
 
 
-        speaker.playSound("minecraft:block.note_block.harp")
+        monitor.setCursorPos(column, row)
+        monitor.write(text)
+
+
+        -- Move to next column position
+        column = column + textLength + columnGap
+
+
+        speaker.playSound(
+            "minecraft:block.note_block.harp"
+        )
+
         sleep(0.5)
     end
 end
