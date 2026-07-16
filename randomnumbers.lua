@@ -55,8 +55,8 @@ local function buttonWatcher()
     local lastFront = false
 
     while true do
-        local left = relay.getInput("left")
-        local right = relay.getInput("right")
+        local left = relay.getInput("right")
+        local right = relay.getInput("left")
         local top = relay.getInput("top")
         local front = relay.getInput("front")
 
