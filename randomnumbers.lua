@@ -38,9 +38,9 @@ local lastRelayInput = false
 while true do
     if relay.getInput("front") then
         monitor.clear()
-        monitor.setCursorPos(1,1)
+        monitor.setCursorPos(1, 1)
         monitor.write("Relay ON")
-        
+
         sleep(1)
 
         -- wait until relay turns off
