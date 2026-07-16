@@ -61,7 +61,8 @@ local function generate()
 
         -- stop if the column is off the monitor
         if x + #text - 1 > width then
-            break
+            monitor.clear()
+            monitor.setCursorPos(1, 1)
         end
 
 
