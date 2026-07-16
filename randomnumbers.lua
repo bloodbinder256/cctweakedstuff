@@ -22,7 +22,6 @@ local vars = {}
 
 local function generate(player, count, min, max)
     cb.sendMessageToPlayer("Generating random numbers...", player)
-        monitor.setCursorPos(1, 1)
 
     for i = 1, count do
         vars[i] = math.random(min, max)
@@ -42,4 +41,4 @@ while true do
     end
 
 end
-
+monitor.clear()
