@@ -21,7 +21,7 @@ local numberCount = 1
 local function updateMonitor()
     monitor.clear()
     monitor.setCursorPos(1, 1)
-    monitor.write("Numbers: " .. numberCount)
+    monitor.write("Amount: " .. numberCount)
 end
 
 
@@ -39,7 +39,9 @@ local function generate(player)
         monitor.setCursorPos(1, i)
         monitor.write(("var%d: %d"):format(i, value))
 
-        speaker.playSound("minecraft:block.note_block.harp")
+        speaker.playSound(
+            "minecraft:block.note_block.harp"
+        )
 
         sleep(0.5)
     end
@@ -50,17 +52,18 @@ local function buttonWatcher()
     local lastLeft = false
     local lastRight = false
     local lastTop = false
+    local lastFront = false
 
     while true do
         local left = relay.getInput("left")
         local right = relay.getInput("right")
         local top = relay.getInput("top")
+        local front = relay.getInput("front")
 
 
-        -- RIGHT BUTTON: add 1 number
+        -- RIGHT BUTTON: add 1
         if right and not lastRight then
             numberCount = numberCount + 1
-
             updateMonitor()
 
             speaker.playSound(
@@ -69,10 +72,9 @@ local function buttonWatcher()
         end
 
 
-        -- LEFT BUTTON: remove 1 number
+        -- LEFT BUTTON: remove 1
         if left and not lastLeft then
             numberCount = math.max(1, numberCount - 1)
-
             updateMonitor()
 
             speaker.playSound(
@@ -93,9 +95,16 @@ local function buttonWatcher()
         end
 
 
+        -- FRONT BUTTON: generate numbers
+        if front and not lastFront then
+            generate("Button")
+        end
+
+
         lastLeft = left
         lastRight = right
         lastTop = top
+        lastFront = front
 
 
         sleep(0.1)
