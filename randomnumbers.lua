@@ -32,7 +32,6 @@ local function generate()
 
     local columnWidth = 15
 
-    -- how many columns can fit
     local columns = math.floor(width / columnWidth)
 
     if columns < 1 then
@@ -47,6 +46,12 @@ local function generate()
 
 
     for i, value in ipairs(vars) do
+        -- stop if screen is full
+        if column >= columns then
+            break
+        end
+
+
         local text = ("var%d: %d"):format(i, value)
 
         local x = (column * columnWidth) + 1
@@ -63,14 +68,6 @@ local function generate()
         if row > height then
             row = 1
             column = column + 1
-        end
-
-
-        -- no more columns available
-        if column >= columns then
-            monitor.clear()
-            row = 1
-            column = 0
         end
 
 
