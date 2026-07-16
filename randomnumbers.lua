@@ -81,6 +81,8 @@ local function buttonWatcher()
             monitor.clear()
             monitor.setCursorPos(1, 1)
             monitor.write("Screen Reset")
+            sleep(1)
+            monitor.clear()
 
             speaker.playSound(
                 "minecraft:block.note_block.bell"
