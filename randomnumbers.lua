@@ -19,7 +19,7 @@ local function generate(player, count, min, max)
         cb.sendMessageToPlayer(("var%d: %d"):format(i, vars[i]), player)
         sleep(1) -- Chat Box has a cooldown
     end
-            speaker.playSound("minecraft:block.note_block.harp")
+    speaker.playSound("minecraft:block.note_block.harp")
 end
 
 while true do
