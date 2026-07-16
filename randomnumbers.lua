@@ -67,17 +67,10 @@ local function generate()
             column = 0
 
             x = 1
-
-            monitor.setCursorPos(x, row)
-            monitor.write(text)
-
-            row = row + 1
         end
-
 
         monitor.setCursorPos(x, row)
         monitor.write(text)
-
 
         row = row + 1
 
