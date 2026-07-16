@@ -17,10 +17,7 @@ end
 
 math.randomseed(os.epoch("utc"))
 
-
 local vars = {}
-
-monitor.clear()
 
 local function generate(player, count, min, max)
     cb.sendMessageToPlayer("Generating random numbers...", player)
@@ -36,9 +33,14 @@ local function generate(player, count, min, max)
 end
 
 while true do
-    local _, username, message = os.pullEvent("chat")
+    local event, arg1, arg2, arg3 = os.pullEvent()
 
-    if message:lower() == "generate" then
-        generate(username, 5, 1, 1000)
+    if event == "monitor_touch" then
+        monitor.clear()
+    elseif event == "chat" then
+        local username, message = arg1, arg2
+        if message:lower() == "generate" then
+            generate(username, 5, 1, 1000)
+        end
     end
 end
