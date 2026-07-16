@@ -2,12 +2,10 @@ package.path = package.path .. ";/lib/?.lua"
 
 local random = require("lib/randomlib")
 
-local cb = peripheral.find("chat_box")
 local speaker = peripheral.find("speaker")
 local monitor = peripheral.find("monitor")
 local relay = peripheral.find("redstone_relay")
 
-if not cb then error("No Chat Box found!") end
 if not speaker then error("No Speaker found!") end
 if not monitor then error("No Monitor found!") end
 if not relay then error("No Redstone Relay found!") end
@@ -25,11 +23,7 @@ local function updateMonitor()
 end
 
 
-local function generate(player)
-    cb.sendMessageToPlayer(
-        "Generating " .. numberCount .. " random numbers...",
-        player
-    )
+local function generate()
 
     monitor.clear()
 
@@ -112,21 +106,9 @@ local function buttonWatcher()
 end
 
 
-local function chatWatcher()
-    while true do
-        local event, username, message = os.pullEvent("chat")
-
-        if message:lower() == "generate" then
-            generate(username)
-        end
-    end
-end
-
-
 updateMonitor()
 
 
 parallel.waitForAny(
-    buttonWatcher,
-    chatWatcher
+    buttonWatcher
 )
