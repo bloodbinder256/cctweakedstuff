@@ -1,4 +1,4 @@
-local random = require("randomlib")
+local randomlib = dofile("randomlib.lua")
 
 local cb = peripheral.find("chat_box")
 local speaker = peripheral.find("speaker")
