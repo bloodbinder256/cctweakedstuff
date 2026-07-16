@@ -31,7 +31,6 @@ while true do
 
     if event == "monitor_touch" then
         monitor.clear()
-
     elseif event == "chat" then
         local username, message = arg1, arg2
 
