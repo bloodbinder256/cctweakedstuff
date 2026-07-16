@@ -36,23 +36,20 @@ end
 local lastRelayInput = false
 
 while true do
-    -- Check relay front input
-    local relayInput = relay.getInput("front")
-
-    -- Runs once when the relay turns ON
-    if relayInput and not lastRelayInput then
+    if relay.getInput("front") then
         monitor.clear()
-        monitor.setCursorPos(1, 1)
-        monitor.write("Relay activated!")
+        monitor.setCursorPos(1,1)
+        monitor.write("Relay ON")
         
-        speaker.playSound("minecraft:block.note_block.bell")
+        sleep(1)
+
+        -- wait until relay turns off
+        while relay.getInput("front") do
+            sleep(0.1)
+        end
     end
 
-    lastRelayInput = relayInput
-
-
-    -- Check chat messages
-    local event, arg1, arg2 = os.pullEvent()
+    local event, arg1, arg2 = os.pullEventRaw()
 
     if event == "chat" then
         local username = arg1
