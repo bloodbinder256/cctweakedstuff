@@ -17,8 +17,8 @@ local function generate(player, count, min, max)
     for i = 0, count do
         vars[i] = math.random(min, max)
         cb.sendMessageToPlayer(("var%d: %d"):format(i, vars[i]), player)
-        speaker.playNote("block.note.harp", 1, 440)
         sleep(1) -- Chat Box has a cooldown
+        speaker.playNote("block.note.harp")
     end
 end
 
