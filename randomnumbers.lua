@@ -25,7 +25,6 @@ end
 
 local function generate()
     monitor.clear()
-    monitor.setCursorPos(1, 1)
 
     local width, height = monitor.getSize()
 
@@ -34,47 +33,38 @@ local function generate()
     local column = 0
     local row = 1
 
-    local columnWidth = 15
-
+    -- space between columns
+    local columnWidth = 12
 
     for i, value in ipairs(vars) do
-        -- calculate position
-        local x = column * columnWidth + 1
+        local x = (column * columnWidth) + 1
         local y = row
 
-
-        -- reset monitor if it is full
-        if x > width - columnWidth then
-            monitor.clear()
-            column = 0
-            row = 1
-
-            x = 1
-            y = 1
-        end
-
-
+        -- write number
         monitor.setCursorPos(x, y)
-
-        monitor.write(
-            ("var%d: %d"):format(i, value)
-        )
+        monitor.write(("var%d: %d"):format(i, value))
 
 
+        -- move down
         row = row + 1
 
 
-        -- move to next column when bottom reached
+        -- reached bottom, move right
         if row > height then
             row = 1
             column = column + 1
         end
 
 
-        speaker.playSound(
-            "minecraft:block.note_block.harp"
-        )
+        -- reached right edge, reset
+        if (column * columnWidth) + 1 > width then
+            monitor.clear()
+            column = 0
+            row = 1
+        end
 
+
+        speaker.playSound("minecraft:block.note_block.harp")
         sleep(0.5)
     end
 end
