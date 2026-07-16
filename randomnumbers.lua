@@ -11,6 +11,7 @@ speaker.stop()
 if not cb then error("No Chat Box found!") end
 if not speaker then error("No Speaker found!") end
 if not monitor then error("No Monitor found!") end
+if not relay then error("No Redstone Relay found!") end
 
 local function generate(player, count, min, max, sleepamount)
     cb.sendMessageToPlayer("Generating random numbers...", player)
@@ -21,19 +22,28 @@ local function generate(player, count, min, max, sleepamount)
     local vars = random.generate(count, min, max)
 
     for i, value in ipairs(vars) do
+        monitor.setCursorPos(1, i)
         monitor.write(("var%d: %d"):format(i, value))
-        monitor.setCursorPos(1, i + 1)
         speaker.playSound("minecraft:block.note_block.harp")
         sleep(sleepamount)
     end
 end
 
+local lastInput = false
+
 while true do
+    local input = relay.getInput("front")
+
+    -- detects when the button/signal changes to ON
+    if input and not lastInput then
+        monitor.clear()
+    end
+
+    lastInput = input
+
     local event, arg1, arg2 = os.pullEvent()
 
-    if event == "relay.getInput(front)" and arg1 == true then
-        monitor.clear()
-    elseif event == "chat" then
+    if event == "chat" then
         local username, message = arg1, arg2
 
         if message:lower() == "generate" then
