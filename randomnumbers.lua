@@ -24,7 +24,6 @@ end
 
 
 local function generate()
-
     monitor.clear()
 
     local vars = random.generate(numberCount, 1, 1000)
