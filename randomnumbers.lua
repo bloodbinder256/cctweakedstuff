@@ -20,7 +20,6 @@ local function generate(player, count, min, max)
         speaker.playSound("minecraft:block.note_block.harp")
         sleep(1) -- Chat Box has a cooldown
     end
-    speaker.playSound("minecraft:block.note_block.cow_bell")
 end
 
 while true do
@@ -30,4 +29,5 @@ while true do
         generate(username, 5, 1, 1000)
         speaker.stop()
     end
+      speaker.playSound("minecraft:block.note_block.cow_bell")
 end
