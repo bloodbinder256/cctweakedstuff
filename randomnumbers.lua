@@ -1,4 +1,4 @@
-local random = require("randomlib")
+local random = require("cctweakedstuff.randomlib")
 
 local cb = peripheral.find("chat_box")
 local speaker = peripheral.find("speaker")
