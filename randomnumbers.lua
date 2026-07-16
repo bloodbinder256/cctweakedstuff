@@ -30,38 +30,48 @@ local function generate()
 
     local vars = random.generate(numberCount, 1, 1000)
 
-    local row = 1
-    local column = 1
+    local columnWidth = 15
 
-    local columnGap = 2 -- spaces between columns
+    -- how many columns can fit
+    local columns = math.floor(width / columnWidth)
+
+    if columns < 1 then
+        monitor.setCursorPos(1, 1)
+        monitor.write("Monitor too small")
+        return
+    end
+
+
+    local row = 1
+    local column = 0
 
 
     for i, value in ipairs(vars) do
         local text = ("var%d: %d"):format(i, value)
-        local textLength = #text
+
+        local x = (column * columnWidth) + 1
 
 
-        -- If this number cannot fit on this row, move down
-        if column + textLength - 1 > width then
-            column = 1
-            row = row + 1
-        end
-
-
-        -- If it cannot fit vertically, reset screen
-        if row > height then
-            monitor.clear()
-            row = 1
-            column = 1
-        end
-
-
-        monitor.setCursorPos(column, row)
+        monitor.setCursorPos(x, row)
         monitor.write(text)
 
 
-        -- Move to next column position
-        column = column + textLength + columnGap
+        row = row + 1
+
+
+        -- move to next column
+        if row > height then
+            row = 1
+            column = column + 1
+        end
+
+
+        -- no more columns available
+        if column >= columns then
+            monitor.clear()
+            row = 1
+            column = 0
+        end
 
 
         speaker.playSound(
