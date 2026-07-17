@@ -15,10 +15,10 @@ math.random()
 math.random()
 math.random()
 
-local vars = {} 
+local vars = {}
 
 function random.generate(count, min, max)
-    vars = {} 
+    vars = {}
     for i = 1, count do
         vars[i] = math.random(min, max)
     end
@@ -26,7 +26,9 @@ function random.generate(count, min, max)
 end
 
 function random.get(index) return vars[index] end
+
 function random.getAll() return vars end
+
 function random.reset() vars = {} end
 
 return random
