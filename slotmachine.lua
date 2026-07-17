@@ -8,15 +8,9 @@ local windowLeft, windowMiddle, windowRight
 
 local division = math.floor(width / 3)
 
+local window
+
 print(height)
-
-windowLeft = window.create(monitor, 1, 1, division, height)
-windowMiddle = window.create(monitor, division + 1, 1, (division * 2) + 1, height)
-windowRight = window.create(monitor, 2 * division + 1, 1, (division * 3) + 1, height)
-
-windowLeft.setBackgroundColor(colors.yellow)
-windowMiddle.setBackgroundColor(colors.blue)
-windowRight.setBackgroundColor(colors.yellow)
 
 function updateMonitor()
     monitor.clear()
@@ -33,3 +27,11 @@ function updateMonitor()
 end
 
 updateMonitor()
+
+windowLeft = window.create(monitor, 1, 1, division, height)
+windowMiddle = window.create(monitor, division + 1, 1, (division * 2) + 1, height)
+windowRight = window.create(monitor, 2 * division + 1, 1, (division * 3) + 1, height)
+
+windowLeft.setBackgroundColor(colors.yellow)
+windowMiddle.setBackgroundColor(colors.blue)
+windowRight.setBackgroundColor(colors.yellow)
