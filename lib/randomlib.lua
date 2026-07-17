@@ -2,11 +2,7 @@ local random = {}
 
 local seedValue = 0
 
-if os.epoch then
-    seedValue = os.epoch("utc")
-else
-    seedValue = os.time("utc")
-end
+seedValue = os.time("utc")
 
 math.randomseed(seedValue)
 
