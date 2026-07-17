@@ -1,6 +1,5 @@
-package.path = package.path .. ";/lib/?.lua"
 
-local random = require("lib/randomlib")
+local random = require("cctweakedstuff.lib.randomlib")
 
 local speaker = peripheral.find("speaker")
 local monitor = peripheral.find("monitor")
@@ -81,7 +80,6 @@ local function generate()
     end
 end
 
-
 local function buttonWatcher()
     local lastLeft = false
     local lastRight = false
@@ -147,10 +145,5 @@ local function buttonWatcher()
     end
 end
 
-
 updateMonitor()
-
-
-parallel.waitForAny(
-    buttonWatcher
-)
+buttonWatcher()
