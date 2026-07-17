@@ -1,16 +1,15 @@
 local random = {}
 
 local seedValue = 0
+
 if os.epoch then
     seedValue = os.epoch("utc")
 else
-    seedValue = os.time() * 1000
+    seedValue = os.time("utc")
 end
 
--- Seed the randomizer
 math.randomseed(seedValue)
 
--- Warm up the engine
 math.random()
 math.random()
 math.random()
