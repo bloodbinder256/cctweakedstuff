@@ -22,8 +22,6 @@ function updateMonitor()
     windowRight.write("Right Window")
 end
 
-updateMonitor()
-
 windowLeft = window.create(monitor, 1, 1, division, height)
 windowMiddle = window.create(monitor, division + 1, 1, (division * 2) + 1, height)
 windowRight = window.create(monitor, 2 * division + 1, 1, (division * 3) + 1, height)
@@ -31,3 +29,5 @@ windowRight = window.create(monitor, 2 * division + 1, 1, (division * 3) + 1, he
 windowLeft.setBackgroundColor(colors.yellow)
 windowMiddle.setBackgroundColor(colors.blue)
 windowRight.setBackgroundColor(colors.yellow)
+
+updateMonitor()
