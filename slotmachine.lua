@@ -11,7 +11,7 @@ local division = math.floor(width / 3)
 print(height)
 
 windowLeft = window.create(monitor, 1, 1, division, height)
-windowMiddle = window.create(monitor, division + 1, 1, division * 2, height)
+windowMiddle = window.create(monitor, division + 1, 1, (division * 2) + 1, height)
 windowRight = window.create(monitor, 2 * division + 1, 1, (division * 3) + 1, height)
 
 windowLeft.setBackgroundColor(colors.yellow)
