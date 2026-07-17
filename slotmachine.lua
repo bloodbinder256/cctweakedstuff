@@ -9,7 +9,12 @@ print("Monitor size: " .. width .. "x" .. height)
 function updateMonitor()
     monitor.clear()
     monitor.setCursorPos(1, 1)
-    monitor.write("Monitor size: " .. width .. "x" .. height)
+    monitor.windowLeft.setCursorPos(1, 1)
+    monitor.windowLeft.write("Left Window")
+    monitor.windowMiddle.setCursorPos(1, 1)
+    monitor.windowMiddle.write("Middle Window")
+    monitor.windowRight.setCursorPos(1, 1)
+    monitor.windowRight.write("Right Window")
 end
 
 local windowLeft, windowMiddle, windowRight
