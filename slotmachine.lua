@@ -8,10 +8,6 @@ local windowLeft, windowMiddle, windowRight
 
 local division = math.floor(width / 3)
 
-local window
-
-print(height)
-
 function updateMonitor()
     monitor.clear()
     windowLeft.clear()
