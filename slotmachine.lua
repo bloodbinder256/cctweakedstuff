@@ -4,6 +4,10 @@ local monitor = peripheral.find("monitor")
 
 local width, height = monitor.getSize()
 
+local windowLeft, windowMiddle, windowRight
+
+local division = math.floor(width / 3)
+
 print("Monitor size: " .. width .. "x" .. height)
 
 function updateMonitor()
@@ -17,11 +21,9 @@ function updateMonitor()
     monitor.windowRight.write("Right Window")
 end
 
-local windowLeft, windowMiddle, windowRight
-
-windowLeft = window.create(monitor, 1, 1, width / 3, height)
-windowMiddle = window.create(monitor, 1, 1, width / 3, height)
-windowRight = window.create(monitor, 1, 1, width / 3, height)
+windowLeft = window.create(monitor, 1, 1, division, height)
+windowMiddle = window.create(monitor, division + 1, 1, division * 2, height)
+windowRight = window.create(monitor, 2 * division + 1, 1, division * 3, height)
 
 windowLeft.setBackgroundColor(colors.yellow)
 windowMiddle.setBackgroundColor(colors.blue)
