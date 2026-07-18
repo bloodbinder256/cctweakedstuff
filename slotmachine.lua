@@ -7,15 +7,17 @@ end
 
 local width, height = monitor.getSize()
 
-local division = math.floor(width / 3)
+-- Left and right are equal, middle gets the remainder
+local sideWidth = math.floor(width / 3)
+local middleWidth = width - (sideWidth * 2)
 
-local windowLeft = window.create(monitor, 1, 1, division, height)
-local windowMiddle = window.create(monitor, division + 1, 1, division, height)
+local windowLeft = window.create(monitor, 1, 1, sideWidth, height)
+local windowMiddle = window.create(monitor, sideWidth + 1, 1, middleWidth, height)
 local windowRight = window.create(
     monitor,
-    division * 2 + 1,
+    sideWidth + middleWidth + 1,
     1,
-    width - (division * 2),
+    sideWidth,
     height
 )
 
