@@ -15,6 +15,10 @@ local windowLeft = window.create(monitor, 1, 1, sideWidth, height)
 local windowMiddle = window.create(monitor, sideWidth + 1, 1, middleWidth, height)
 local windowRight = window.create(monitor, sideWidth + middleWidth + 1, 1, sideWidth, height)
 
+-- UI layer over everything
+local ui = window.create(monitor, 1, 1, width, height, true)
+
+
 windowLeft.setBackgroundColor(colors.yellow)
 windowMiddle.setBackgroundColor(colors.blue)
 windowRight.setBackgroundColor(colors.yellow)
@@ -23,9 +27,14 @@ windowLeft.setTextColor(colors.white)
 windowMiddle.setTextColor(colors.white)
 windowRight.setTextColor(colors.white)
 
-windowLeft.setVisible(true)
-windowMiddle.setVisible(true)
-windowRight.setVisible(true)
+
+local function Title(win, text)
+    local w, h = win.getSize()
+    local x = math.floor((w - #text) / 2) + 1
+
+    win.setCursorPos(x, 1)
+    win.write(text)
+end
 
 
 local function Button(text, color, sizex, sizey)
@@ -36,10 +45,10 @@ local function Button(text, color, sizex, sizey)
     button.width = sizex
     button.height = sizey
 
+
     function button:draw(win, x, y)
         self.x = x
         self.y = y
-        self.win = win
 
         win.setBackgroundColor(self.color)
 
@@ -57,57 +66,80 @@ local function Button(text, color, sizex, sizey)
         win.write(self.text)
     end
 
-    function button:isClicked(mx, my)
-        return mx >= self.x
-            and mx < self.x + self.width
-            and my >= self.y
-            and my < self.y + self.height
+    function button:isClicked(x, y)
+        return x >= self.x
+            and x < self.x + self.width
+            and y >= self.y
+            and y < self.y + self.height
     end
 
     return button
 end
 
 
-local function Title(win, text)
-    local w, h = win.getSize()
-    local x = math.floor((w - #text) / 2) + 1
+local function SlotBar(win, x, y)
+    win.setBackgroundColor(colors.gray)
+    win.setTextColor(colors.white)
 
-    win.setCursorPos(x, 1)
-    win.write(text)
+    win.setCursorPos(x, y)
+    win.write("[   ?   |   ?   |   ?   ]")
 end
 
 
-local function updateMonitor()
-    monitor.setBackgroundColor(colors.black)
-    monitor.clear()
+-- Draw background
+windowLeft.clear()
+windowMiddle.clear()
+windowRight.clear()
 
-    windowLeft.clear()
-    windowMiddle.clear()
-    windowRight.clear()
+Title(windowLeft, "Spin")
+Title(windowMiddle, "The")
+Title(windowRight, "Lever!")
 
-    Title(windowLeft, "Spin")
-    Title(windowMiddle, "The")
-    Title(windowRight, "Lever!")
-
-    windowLeft.redraw()
-    windowMiddle.redraw()
-    windowRight.redraw()
-end
-
-
-updateMonitor()
-
-local button = Button("START", colors.green, 10, 3)
-button:draw(windowMiddle, 5, 5)
+windowLeft.redraw()
 windowMiddle.redraw()
+windowRight.redraw()
 
 
+-- Draw UI
+local startButton = Button(
+    "START",
+    colors.green,
+    10,
+    3
+)
+
+startButton:draw(
+    ui,
+    math.floor(width / 2) - 5,
+    8
+)
+
+SlotBar(
+    ui,
+    math.floor(width / 2) - 10,
+    4
+)
+
+ui.redraw()
+
+
+-- Main loop
 while true do
-    local event, buttonNum, x, y = os.pullEvent("mouse_click")
+    local event, side, x, y = os.pullEvent("monitor_touch")
 
-    x = x - sideWidth
+    if startButton:isClicked(x, y) then
+        ui.setCursorPos(1, 12)
+        ui.setBackgroundColor(colors.black)
+        ui.setTextColor(colors.white)
+        ui.write("Spinning...")
 
-    if button:isClicked(x, y) then
-        print("Button pressed!")
+        ui.redraw()
+
+        sleep(1)
+
+        ui.setCursorPos(1, 12)
+        ui.write("Result: 7 7 7")
+
+        ui.redraw()
     end
 end
