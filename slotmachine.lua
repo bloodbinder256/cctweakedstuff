@@ -27,6 +27,7 @@ windowLeft.setVisible(true)
 windowMiddle.setVisible(true)
 windowRight.setVisible(true)
 
+
 local function Button(text, color, sizex, sizey)
     local button = {}
 
@@ -66,13 +67,15 @@ local function Button(text, color, sizex, sizey)
     return button
 end
 
+
 local function Title(win, text)
     local w, h = win.getSize()
     local x = math.floor((w - #text) / 2) + 1
 
-    win.setCursorPos(w / 2 - 1, 1)
+    win.setCursorPos(x, 1)
     win.write(text)
 end
+
 
 local function updateMonitor()
     monitor.setBackgroundColor(colors.black)
@@ -83,7 +86,7 @@ local function updateMonitor()
     windowRight.clear()
 
     Title(windowLeft, "Spin")
-    Title(windowMiddle, " The")
+    Title(windowMiddle, "The")
     Title(windowRight, "Lever!")
 
     windowLeft.redraw()
@@ -91,13 +94,18 @@ local function updateMonitor()
     windowRight.redraw()
 end
 
+
 updateMonitor()
 
 local button = Button("START", colors.green, 10, 3)
 button:draw(windowMiddle, 5, 5)
+windowMiddle.redraw()
+
 
 while true do
     local event, buttonNum, x, y = os.pullEvent("mouse_click")
+
+    x = x - sideWidth
 
     if button:isClicked(x, y) then
         print("Button pressed!")
