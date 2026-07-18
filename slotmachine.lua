@@ -36,6 +36,15 @@ local function centerText(win, text)
     win.write(text)
 end
 
+local function Title(win, text)
+    local w, h = win.getSize()
+    local x = math.floor((w - #text) / 2) + 1
+    local y = math.floor(h)
+
+    win.setCursorPos(x, y)
+    win.write(text)
+end
+
 local function updateMonitor()
     monitor.setBackgroundColor(colors.black)
     monitor.clear()
@@ -44,9 +53,9 @@ local function updateMonitor()
     windowMiddle.clear()
     windowRight.clear()
 
-    centerText(windowLeft, "Left")
-    centerText(windowMiddle, "Middle")
-    centerText(windowRight, "Right")
+    Title(windowLeft, "Spin")
+    Title(windowMiddle, "The")
+    Title(windowRight, "Lever!")
 
     windowLeft.redraw()
     windowMiddle.redraw()
