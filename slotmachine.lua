@@ -27,13 +27,44 @@ windowLeft.setVisible(true)
 windowMiddle.setVisible(true)
 windowRight.setVisible(true)
 
-local function centerText(win, text)
-    local w, h = win.getSize()
-    local x = math.floor((w - #text) / 2) + 1
-    local y = math.floor(h / 2) + 1
+local function Button(text, color, sizex, sizey)
+    local button = {}
 
-    win.setCursorPos(x, y)
-    win.write(text)
+    button.text = text
+    button.color = color
+    button.width = sizex
+    button.height = sizey
+
+    function button:draw(x, y)
+        self.x = x
+        self.y = y
+
+        term.setBackgroundColor(self.color)
+        
+        for yy = y, y + self.height - 1 do
+            term.setCursorPos(x, yy)
+            term.write(string.rep(" ", self.width))
+        end
+
+        term.setCursorPos(
+            x + math.floor((self.width - #self.text) / 2),
+            y + math.floor(self.height / 2)
+        )
+
+        term.setBackgroundColor(self.color)
+        term.setTextColor(colors.white)
+        term.write(self.text)
+    end
+
+
+    function button:isClicked(mx, my)
+        return mx >= self.x 
+           and mx < self.x + self.width
+           and my >= self.y
+           and my < self.y + self.height
+    end
+
+    return button
 end
 
 local function Title(win, text)
@@ -59,6 +90,19 @@ local function updateMonitor()
     windowLeft.redraw()
     windowMiddle.redraw()
     windowRight.redraw()
+end
+
+local button = Button("START", colors.green, 10, 3)
+
+button:draw(5, 5)
+
+
+while true do
+    local event, buttonNum, x, y = os.pullEvent("mouse_click")
+
+    if button:isClicked(x, y) then
+        print("Button pressed!")
+    end
 end
 
 updateMonitor()
