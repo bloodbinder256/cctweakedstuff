@@ -39,7 +39,7 @@ end
 local function Title(win, text)
     local w, h = win.getSize()
     local x = math.floor((w - #text) / 2) + 1
-    local y = math.floor(h / 3) + 1
+    local y = math.floor(h / 1) + 1
 
     win.setCursorPos(x, y)
     win.write(text)
