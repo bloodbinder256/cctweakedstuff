@@ -39,9 +39,8 @@ end
 local function Title(win, text)
     local w, h = win.getSize()
     local x = math.floor((w - #text) / 2) + 1
-    local y = math.floor(h / 1)
 
-    win.setCursorPos(x, y)
+    win.setCursorPos(w / 2 - 1, 1)
     win.write(text)
 end
 
@@ -54,7 +53,7 @@ local function updateMonitor()
     windowRight.clear()
 
     Title(windowLeft, "Spin")
-    Title(windowMiddle, "The")
+    Title(windowMiddle, " The")
     Title(windowRight, "Lever!")
 
     windowLeft.redraw()
