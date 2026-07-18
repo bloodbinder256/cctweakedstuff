@@ -91,8 +91,15 @@ local function updateMonitor()
     windowRight.redraw()
 end
 
-local button = Button("START", colors.green, 10, 3)
+updateMonitor()
 
+local button = Button("START", colors.green, 10, 3)
 button:draw(windowMiddle, 5, 5)
 
-updateMonitor()
+while true do
+    local event, buttonNum, x, y = os.pullEvent("mouse_click")
+
+    if button:isClicked(x, y) then
+        print("Button pressed!")
+    end
+end
