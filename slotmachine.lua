@@ -35,25 +35,25 @@ local function Button(text, color, sizex, sizey)
     button.width = sizex
     button.height = sizey
 
-    function button:draw(x, y)
+    function button:draw(win, x, y)
         self.x = x
         self.y = y
+        self.win = win
 
-        term.setBackgroundColor(self.color)
+        win.setBackgroundColor(self.color)
 
         for yy = y, y + self.height - 1 do
-            term.setCursorPos(x, yy)
-            term.write(string.rep(" ", self.width))
+            win.setCursorPos(x, yy)
+            win.write(string.rep(" ", self.width))
         end
 
-        term.setCursorPos(
+        win.setCursorPos(
             x + math.floor((self.width - #self.text) / 2),
             y + math.floor(self.height / 2)
         )
 
-        term.setBackgroundColor(self.color)
-        term.setTextColor(colors.white)
-        term.write(self.text)
+        win.setTextColor(colors.white)
+        win.write(self.text)
     end
 
     function button:isClicked(mx, my)
@@ -93,15 +93,6 @@ end
 
 local button = Button("START", colors.green, 10, 3)
 
-button:draw(5, 5)
-
-
-while true do
-    local event, buttonNum, x, y = os.pullEvent("mouse_click")
-
-    if button:isClicked(x, y) then
-        print("Button pressed!")
-    end
-end
+button:draw(windowMiddle, 5, 5)
 
 updateMonitor()
