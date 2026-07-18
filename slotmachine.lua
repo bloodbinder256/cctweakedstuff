@@ -27,10 +27,12 @@ windowLeft.setVisible(true)
 windowMiddle.setVisible(true)
 windowRight.setVisible(true)
 
-local function centerText(win, text, y)
-    local w, _ = win.getSize()
-    local x = math.max(1, math.floor((w - #text) / 2) + 1)
-    win.setCursorPos(x, y or 1)
+local function centerText(win, text)
+    local w, h = win.getSize()
+    local x = math.floor((w - #text) / 2) + 1
+    local y = math.floor(h / 2) + 1
+
+    win.setCursorPos(x, y)
     win.write(text)
 end
 
