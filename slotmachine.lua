@@ -40,7 +40,7 @@ local function Button(text, color, sizex, sizey)
         self.y = y
 
         term.setBackgroundColor(self.color)
-        
+
         for yy = y, y + self.height - 1 do
             term.setCursorPos(x, yy)
             term.write(string.rep(" ", self.width))
@@ -56,12 +56,11 @@ local function Button(text, color, sizex, sizey)
         term.write(self.text)
     end
 
-
     function button:isClicked(mx, my)
-        return mx >= self.x 
-           and mx < self.x + self.width
-           and my >= self.y
-           and my < self.y + self.height
+        return mx >= self.x
+            and mx < self.x + self.width
+            and my >= self.y
+            and my < self.y + self.height
     end
 
     return button
