@@ -67,14 +67,12 @@ local function Button(text, color, sizex, sizey)
         win.write(self.text)
     end
 
-
     function button:isClicked(x, y)
         return x >= self.x
-        and x < self.x + self.width
-        and y >= self.y
-        and y < self.y + self.height
+            and x < self.x + self.width
+            and y >= self.y
+            and y < self.y + self.height
     end
-
 
     return button
 end
@@ -118,7 +116,6 @@ while true do
     local event, side, x, y = os.pullEvent("monitor_touch")
 
     if startButton:isClicked(x, y) then
-        
         ui.setCursorPos(1, 12)
         ui.setBackgroundColor(colors.black)
         ui.write("Spinning...")
