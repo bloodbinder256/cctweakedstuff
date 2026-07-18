@@ -13,37 +13,38 @@ local middleWidth = width - (sideWidth * 2)
 
 local windowLeft = window.create(monitor, 1, 1, sideWidth, height)
 local windowMiddle = window.create(monitor, sideWidth + 1, 1, middleWidth, height)
-local windowRight = window.create(
-    monitor,
-    sideWidth + middleWidth + 1,
-    1,
-    sideWidth,
-    height
-)
+local windowRight = window.create(monitor, sideWidth + middleWidth + 1, 1, sideWidth, height)
 
 windowLeft.setBackgroundColor(colors.yellow)
 windowMiddle.setBackgroundColor(colors.blue)
 windowRight.setBackgroundColor(colors.yellow)
 
+windowLeft.setTextColor(colors.white)
+windowMiddle.setTextColor(colors.white)
+windowRight.setTextColor(colors.white)
+
 windowLeft.setVisible(true)
 windowMiddle.setVisible(true)
 windowRight.setVisible(true)
 
+local function centerText(win, text, y)
+    local w, _ = win.getSize()
+    local x = math.max(1, math.floor((w - #text) / 2) + 1)
+    win.setCursorPos(x, y or 1)
+    win.write(text)
+end
+
 local function updateMonitor()
+    monitor.setBackgroundColor(colors.black)
     monitor.clear()
 
     windowLeft.clear()
     windowMiddle.clear()
     windowRight.clear()
 
-    windowLeft.setCursorPos(1, 1)
-    windowLeft.write("Left Window")
-
-    windowMiddle.setCursorPos(1, 1)
-    windowMiddle.write("Middle Window")
-
-    windowRight.setCursorPos(1, 1)
-    windowRight.write("Right Window")
+    centerText(windowLeft, "Left")
+    centerText(windowMiddle, "Middle")
+    centerText(windowRight, "Right")
 
     windowLeft.redraw()
     windowMiddle.redraw()
