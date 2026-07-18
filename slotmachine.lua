@@ -7,7 +7,8 @@ end
 
 local width, height = monitor.getSize()
 
--- Left and right are equal, middle gets the remainder
+
+-- Split screen
 local sideWidth = math.floor(width / 3)
 local middleWidth = width - (sideWidth * 2)
 
@@ -15,24 +16,25 @@ local windowLeft = window.create(monitor, 1, 1, sideWidth, height)
 local windowMiddle = window.create(monitor, sideWidth + 1, 1, middleWidth, height)
 local windowRight = window.create(monitor, sideWidth + middleWidth + 1, 1, sideWidth, height)
 
--- UI layer over everything
+
+-- UI layer
 local ui = window.create(monitor, 1, 1, width, height, true)
 
 
+-- Background
 windowLeft.setBackgroundColor(colors.yellow)
 windowMiddle.setBackgroundColor(colors.blue)
 windowRight.setBackgroundColor(colors.yellow)
 
-windowLeft.setTextColor(colors.white)
-windowMiddle.setTextColor(colors.white)
-windowRight.setTextColor(colors.white)
 
-
-local function Title(win, text)
+local function centerText(win, y, text)
     local w, h = win.getSize()
-    local x = math.floor((w - #text) / 2) + 1
 
-    win.setCursorPos(x, 1)
+    win.setCursorPos(
+        math.floor((w - #text) / 2) + 1,
+        y
+    )
+
     win.write(text)
 end
 
@@ -57,12 +59,14 @@ local function Button(text, color, sizex, sizey)
             win.write(string.rep(" ", self.width))
         end
 
+
+        win.setTextColor(colors.white)
+
         win.setCursorPos(
             x + math.floor((self.width - #self.text) / 2),
             y + math.floor(self.height / 2)
         )
 
-        win.setTextColor(colors.white)
         win.write(self.text)
     end
 
@@ -77,69 +81,121 @@ local function Button(text, color, sizex, sizey)
 end
 
 
-local function SlotBar(win, x, y)
-    win.setBackgroundColor(colors.gray)
-    win.setTextColor(colors.white)
 
-    win.setCursorPos(x, y)
-    win.write("[   ?   |   ?   |   ?   ]")
+local symbols = {
+    "7",
+    "BAR",
+    "C",
+    "$",
+    "*"
+}
+
+
+local reels = {
+    1,
+    1,
+    1
+}
+
+
+
+local function drawReels()
+    local reelText =
+        "[ " .. symbols[reels[1]]
+        .. " ]  [ " .. symbols[reels[2]]
+        .. " ]  [ " .. symbols[reels[3]]
+        .. " ]"
+
+
+    ui.setCursorPos(
+        math.floor((width - #reelText) / 2) + 1,
+        5
+    )
+
+    ui.setBackgroundColor(colors.gray)
+    ui.setTextColor(colors.white)
+
+    ui.write(reelText)
 end
 
 
+
+local function spin()
+    for i = 1, 10 do
+        local nums = random.generate(3, 1, #symbols)
+
+        reels[1] = nums[1]
+        reels[2] = nums[2]
+        reels[3] = nums[3]
+
+        ui.clear()
+
+        drawReels()
+
+        startButton:draw(
+            ui,
+            math.floor((width - 10) / 2),
+            8
+        )
+
+        ui.redraw()
+
+        sleep(0.1)
+    end
+end
+
+
+
 -- Draw background
+
 windowLeft.clear()
 windowMiddle.clear()
 windowRight.clear()
 
-Title(windowLeft, "Spin")
-Title(windowMiddle, "The")
-Title(windowRight, "Lever!")
+centerText(windowLeft, 1, "Spin")
+centerText(windowMiddle, 1, "The")
+centerText(windowRight, 1, "Lever!")
 
 windowLeft.redraw()
 windowMiddle.redraw()
 windowRight.redraw()
 
 
--- Draw UI
-local startButton = Button(
+
+-- Button
+
+startButton = Button(
     "START",
     colors.green,
     10,
     3
 )
 
+
+ui.clear()
+
+
+drawReels()
+
+
 startButton:draw(
     ui,
-    math.floor(width / 2) - 5,
+    math.floor((width - 10) / 2),
     8
 )
 
-SlotBar(
-    ui,
-    math.floor(width / 2) - 10,
-    4
-)
 
 ui.redraw()
 
 
--- Main loop
+
+-- Touch loop
+
 while true do
     local event, side, x, y = os.pullEvent("monitor_touch")
 
+
     if startButton:isClicked(x, y) then
-        ui.setCursorPos(1, 12)
-        ui.setBackgroundColor(colors.black)
-        ui.setTextColor(colors.white)
-        ui.write("Spinning...")
-
-        ui.redraw()
-
-        sleep(1)
-
-        ui.setCursorPos(1, 12)
-        ui.write("Result: 7 7 7")
-
-        ui.redraw()
+        spin()
     end
 end
